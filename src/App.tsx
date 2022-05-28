@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import { Login } from "./features/login/Login";
 import "./App.css";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import { Spin, Tag } from "antd";
 
 function App() {
