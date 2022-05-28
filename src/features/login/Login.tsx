@@ -49,7 +49,7 @@ export function Login() {
                 className="Form-btn"
                 onClick={async (e) => {
                   e.preventDefault();
-                  const res = await fetch("/api", {
+                  const res = await fetch("https://fetest.kodeia.com/api", {
                     method: "POST",
                     headers: {
                       Accept: "application/json",
