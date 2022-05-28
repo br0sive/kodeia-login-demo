@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Login } from "./features/login/Login";
 import "./App.css";
-import "antd/dist/antd.min.css";
-import { Spin, Tag } from "antd";
+import loading from "./img/load.gif";
 
 function App() {
   const [loader, setLoader] = useState(true);
@@ -23,7 +22,7 @@ function App() {
       <div
         id="test"
         className="animate-pulse flex flex-col items-center h-full m-5"
-        style={{ paddingTop: 80 }}
+        style={{ paddingTop: 70 }}
       >
         <h1
           style={{
@@ -36,28 +35,30 @@ function App() {
           Welcome to my Login Demo
         </h1>
       </div>
-      <div className="animate-pulse flex flex-col items-center h-full">
-        <p style={{ fontSize: 14, fontWeight: "bold", paddingBottom: 10 }}>
+      <div className="flex flex-col items-center h-full">
+        <p style={{ fontSize: 14, fontWeight: "bold", paddingBottom: 1 }}>
           Presented By :
         </p>
         <a href="https://github.com/br0sive">
-          <Tag
+          <p
             style={{
               fontSize: 17,
               fontStyle: "bolder",
               fontFamily: "cursive",
-              padding: 7,
+              paddingBottom: 20,
             }}
             color={"purple"}
           >
             Sahan Amarasekara
-          </Tag>
+          </p>
         </a>
-        <Spin
-          size="large"
-          className="animate-bounce"
-          style={{ paddingTop: "5rem" }}
-        />
+        <div>
+          <img
+            style={{ height: 50, paddingTop: 20 }}
+            src={loading}
+            alt="BigCo Inc. logo"
+          />
+        </div>
       </div>
     </div>
   );
