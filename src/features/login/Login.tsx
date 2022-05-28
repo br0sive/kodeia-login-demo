@@ -1,7 +1,14 @@
 import background from "./../../img/bg-01.jpg";
 import "./../../App.css";
+import { useDispatch } from "react-redux";
+import { setLoginResponse } from "./counterSlice";
+import { useState } from "react";
 
 export function Login() {
+  const dispatch = useDispatch();
+  const [uName, setUName] = useState("");
+  const [pw, setPw] = useState("");
+
   return (
     <div className="Login">
       <div
@@ -17,6 +24,10 @@ export function Login() {
                 type="text"
                 name="username"
                 placeholder="User name"
+                value={uName}
+                onChange={(val) => {
+                  setUName(val.target.value);
+                }}
               ></input>
               <span className="Focus-input"></span>
             </div>
@@ -26,14 +37,38 @@ export function Login() {
                 type="password"
                 name="pass"
                 placeholder="Password"
+                value={pw}
+                onChange={(val) => {
+                  setPw(val.target.value);
+                }}
               ></input>
               <span className="Focus-input"></span>
             </div>
             <div className="App-login-form-btn">
               <button
                 className="Form-btn"
-                onClick={() => {
-                  console.log("Button Clicked");
+                onClick={async (e) => {
+                  e.preventDefault();
+                  const res = await fetch("/api", {
+                    method: "POST",
+                    headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      username: `${uName}`,
+                      password: `${pw}`,
+                    }),
+                  });
+
+                  const content = await res.json();
+                  console.log(content);
+                  if (content.success === "true") {
+                    console.log("true");
+                    dispatch(setLoginResponse({ id: content.data.id }));
+                  } else {
+                    // login failed
+                  }
                 }}
               >
                 Login
@@ -43,50 +78,5 @@ export function Login() {
         </div>
       </div>
     </div>
-    // <div>
-    //   <div className={styles.row}>
-    //     <button
-    //       className={styles.button}
-    //       aria-label="Decrement value"
-    //       onClick={() => dispatch(decrement())}
-    //     >
-    //       -
-    //     </button>
-    //     <span className={styles.value}>{count}</span>
-    //     <button
-    //       className={styles.button}
-    //       aria-label="Increment value"
-    //       onClick={() => dispatch(increment())}
-    //     >
-    //       +
-    //     </button>
-    //   </div>
-    //   <div className={styles.row}>
-    //     <input
-    //       className={styles.textbox}
-    //       aria-label="Set increment amount"
-    //       value={incrementAmount}
-    //       onChange={(e) => setIncrementAmount(e.target.value)}
-    //     />
-    //     <button
-    //       className={styles.button}
-    //       onClick={() => dispatch(incrementByAmount(incrementValue))}
-    //     >
-    //       Add Amount
-    //     </button>
-    //     <button
-    //       className={styles.asyncButton}
-    //       onClick={() => dispatch(incrementAsync(incrementValue))}
-    //     >
-    //       Add Async
-    //     </button>
-    //     <button
-    //       className={styles.button}
-    //       onClick={() => dispatch(incrementIfOdd(incrementValue))}
-    //     >
-    //       Add If Odd
-    //     </button>
-    //   </div>
-    // </div>
   );
 }

@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Login } from "./features/login/Login";
 import "./App.css";
 import loading from "./img/load.gif";
+import { useSelector } from "react-redux";
 
 function App() {
   const [loader, setLoader] = useState(true);
+  const loginRes = useSelector((state: any) => state.counter.loginResponse);
 
   setTimeout(() => {
     setLoader(false);
   }, 7000);
+  useEffect(() => {
+    console.log({ loginRes });
+  }, [loginRes]);
+
+  if (loginRes) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen w-screen">
+        <h1
+          style={{
+            fontSize: 30,
+            color: "green",
+            fontWeight: "bolder",
+            textAlign: "center",
+          }}
+        >
+          {loginRes.id}
+        </h1>
+      </div>
+    );
+  }
   if (!loader) {
     return (
       <div className="App">
